@@ -13,12 +13,20 @@
     </div>
   <div class=col-md-3>
     <button (click)="toggleShapes()" class="btn btn-primary">Change Radius</button>
+    <button (click)="toggleDotMovement()" class="btn btn-primary">Change Dot Movement</button>
   </div>
 </div>
 <hr/>
-<span *ngFor="let row of rows$ | async">
-  <span *ngFor="let column of columns$ | async">
-    <app-block></app-block>
-  </span>
-  <br />
-</span>
+<div class="row">
+  <div class="col-md-6">
+    <span *ngFor="let row of rows$ | async">
+      <span *ngFor="let column of columns$ | async">
+        <app-block></app-block>
+      </span>
+      <br />
+    </span>
+  </div>
+  <div class="col-md-6">
+    <app-dot></app-dot>
+  </div>
+</div>

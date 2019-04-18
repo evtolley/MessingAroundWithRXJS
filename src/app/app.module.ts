@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BlockComponent } from './block/block.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { DotComponent } from './dot/dot.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    BlockComponent
+    BlockComponent,
+    DotComponent
   ],
   imports: [
     BrowserModule,

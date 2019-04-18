@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, ViewChildren, QueryList } from '@angular/core';
-import { timer, BehaviorSubject,  of, from } from 'rxjs';
+import { Component, OnInit, OnDestroy, ViewChildren, QueryList, ViewChild } from '@angular/core';
+import { timer, BehaviorSubject,  of, from, Subscription } from 'rxjs';
 import { delay, concatMap, tap } from 'rxjs/operators';
 import { BlockComponent } from './block/block.component';
+import { DotComponent } from './dot/dot.component';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +16,14 @@ export class AppComponent implements OnInit, OnDestroy {
   rows$ = new BehaviorSubject<Array<number>>(Array(5));
   columns$ = new BehaviorSubject<Array<number>>(Array(5));
 
+  dotMovementSubscription: Subscription;
+
   borderRadius = 0;
   goingDown = false;
   size = 35;
 
   @ViewChildren(BlockComponent) blocks: QueryList<BlockComponent>;
-
+  @ViewChild(DotComponent) dot: DotComponent;
 
   changeColor(color: string) {
     from(this.blocks.toArray()).pipe(
@@ -62,7 +65,22 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  counter(i: number): Array<number> {
+moveDot() {
+  this.dotMovementSubscription = timer(0, 1).subscribe(res => {
+    this.dot.move(10);
+  });
+}
+
+toggleDotMovement() {
+  if (this.dotMovementSubscription) {
+    this.dotMovementSubscription.unsubscribe();
+    delete this.dotMovementSubscription;
+  } else {
+    this.moveDot();
+  }
+}
+
+counter(i: number): Array<number> {
     return new Array(i);
 }
 
@@ -75,7 +93,6 @@ onColumnsUpdated(count: number) {
 }
 
   ngOnInit() {
-
   }
 
   ngOnDestroy() {
