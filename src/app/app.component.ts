@@ -23,6 +23,8 @@ export class AppComponent implements OnInit, OnDestroy {
   goingDown = false;
   size = 35;
 
+  dotSpeed = 2;
+
   @ViewChildren(BlockComponent) blocks: QueryList<BlockComponent>;
   @ViewChild(DotComponent) dot: DotComponent;
 
@@ -72,7 +74,7 @@ toggleHorizontalDotMovement() {
     delete this.horizontalDotMovementSubscription;
   } else {
     this.horizontalDotMovementSubscription = timer(0, 10).subscribe(res => {
-      this.dot.moveHorizontally(2);
+      this.dot.moveHorizontally(this.dotSpeed);
     });
   }
 }
@@ -83,7 +85,7 @@ toggleVerticalDotMovement() {
     delete this.verticalDotMovementSubscription;
   } else {
     this.verticalDotMovementSubscription = timer(0, 10).subscribe(res => {
-      this.dot.moveVertically(2);
+      this.dot.moveVertically(this.dotSpeed);
     });
   }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-dot',
   templateUrl: './dot.component.html',
-  styleUrls: ['./dot.component.scss']
+  styleUrls: ['./dot.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DotComponent implements OnInit {
 
@@ -26,7 +27,7 @@ export class DotComponent implements OnInit {
       this.marginTop -= margin;
     }
 
-    if(this.marginTop >= 500) {
+    if (this.marginTop >= 500) {
       this.goingDown = false;
     } else if (this.marginTop <= 0) {
       this.goingDown = true;
@@ -41,7 +42,7 @@ export class DotComponent implements OnInit {
       this.marginRight += margin;
     }
 
-    if (this.marginRight >= 200) {
+    if (this.marginRight >= 500) {
       this.goingRight = true;
     } else if (this.marginRight <= 0) {
       this.goingRight = false;
@@ -49,8 +50,6 @@ export class DotComponent implements OnInit {
     this.marginRight$.next(`${this.marginRight}px`);
   }
 
-
   ngOnInit() {
   }
-
 }

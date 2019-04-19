@@ -11,6 +11,9 @@
   <div class="col-md-3">
       Size <input type="number" class="form-control" [ngModel]="size" (ngModelChange)="changeSize($event)" />
     </div>
+    <div class="col-md-3">
+      Dot Speed <input type="number" class="form-control" [(ngModel)]="dotSpeed" />
+    </div>
   <div class=col-md-3>
     <button (click)="toggleShapes()" class="btn btn-primary">Change Radius</button>
     <br/>
