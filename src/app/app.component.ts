@@ -16,7 +16,8 @@ export class AppComponent implements OnInit, OnDestroy {
   rows$ = new BehaviorSubject<Array<number>>(Array(5));
   columns$ = new BehaviorSubject<Array<number>>(Array(5));
 
-  dotMovementSubscription: Subscription;
+  verticalDotMovementSubscription: Subscription;
+  horizontalDotMovementSubscription: Subscription;
 
   borderRadius = 0;
   goingDown = false;
@@ -65,18 +66,25 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-moveDot() {
-  this.dotMovementSubscription = timer(0, 1).subscribe(res => {
-    this.dot.move(10);
-  });
+toggleHorizontalDotMovement() {
+  if (this.horizontalDotMovementSubscription) {
+    this.horizontalDotMovementSubscription.unsubscribe();
+    delete this.horizontalDotMovementSubscription;
+  } else {
+    this.horizontalDotMovementSubscription = timer(0, 10).subscribe(res => {
+      this.dot.moveHorizontally(2);
+    });
+  }
 }
 
-toggleDotMovement() {
-  if (this.dotMovementSubscription) {
-    this.dotMovementSubscription.unsubscribe();
-    delete this.dotMovementSubscription;
+toggleVerticalDotMovement() {
+  if (this.verticalDotMovementSubscription) {
+    this.verticalDotMovementSubscription.unsubscribe();
+    delete this.verticalDotMovementSubscription;
   } else {
-    this.moveDot();
+    this.verticalDotMovementSubscription = timer(0, 10).subscribe(res => {
+      this.dot.moveVertically(2);
+    });
   }
 }
 
